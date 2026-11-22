@@ -5,55 +5,38 @@ import { defineConfig } from 'checkly'
  */
 const config = defineConfig({
   /* A human friendly name for your project */
-  projectName: 'Boilerplate Project',
-  /** A logical ID that needs to be unique across your Checkly account,
-  * See https://www.checklyhq.com/docs/cli/constructs/ to learn more about logical IDs.
-  */
-  logicalId: 'boilerplate-project',
+  projectName: 'Raccoon Synthetics',
+  /** A logical ID that needs to be unique across your Checkly account */
+  logicalId: 'raccoon-synthetics',
   /* An optional URL to your Git repo */
-  repoUrl: 'https://github.com/checkly/checkly-cli',
+  repoUrl: 'https://github.com/olorunpojuessangd/checkly-synthetics',
   /* Sets default values for Checks */
   checks: {
     /* A default for how often your Check should run in minutes */
     frequency: 10,
     /* Checkly data centers to run your Checks as monitors */
     locations: ['us-east-1', 'eu-central-1'],
-    /* An optional array of tags to organize your Checks */
-    tags: ['mac'],
-    /** The Checkly Runtime identifier, determining npm packages and the Node.js version available at runtime.
-     * See https://www.checklyhq.com/docs/cli/npm-packages/
-     */
+    /** The Checkly Runtime identifier, determining npm packages and the Node.js version available at runtime */
     runtimeId: '2025.04',
-    /* A glob pattern that matches the Checks inside your repo, see https://www.checklyhq.com/docs/constructs/including-checks/#checks-checkmatch */
+    /* Files ending in .check.ts under __checks__ hold Checkly settings (groups, API checks) */
     checkMatch: '**/__checks__/**/*.check.ts',
-    /* Global configuration option for Browser and Multistep checks. See https://www.checklyhq.com/docs/browser-checks/playwright-test/#global-configuration */
+    /* Global configuration for Browser checks */
     playwrightConfig: {
       timeout: 30000,
       use: {
-        baseURL: 'https://www.danube-web.shop',
         viewport: { width: 1280, height: 720 },
-      }
+      },
     },
     browserChecks: {
-      /* A glob pattern matches any Playwright .spec.ts files and automagically creates a Browser Check. This way, you
-      * can just write Playwright code. See https://www.checklyhq.com/docs/constructs/including-checks/#browserchecks-testmatch
-      * */
+      /* Temporary for Part 2: every .spec.ts file under __checks__ becomes a Browser check.
+       * Part 4 changes this so the Playwright group owns these files instead. */
       testMatch: '**/__checks__/**/*.spec.ts',
     },
-    // Playwright Check Suites definition, run the whole Playwright Test Suite in a Check
-    playwrightConfigPath: './playwright.config.ts',
-    playwrightChecks: [
-      {
-        logicalId: 'playwright-check-suite',
-        name: 'Playwright Check Suite Simple TS',
-        //Use `testCommand: npx playwright test` to filter the tests you want to run
-      }
-    ],
   },
   cli: {
     /* The default datacenter location to use when running npx checkly test */
     runLocation: 'eu-central-1',
-    /* How many times to retry a failing test run when running `npx checkly test` or `npx checkly trigger` (max. 3) */
+    /* How many times to retry a failing test run when running `npx checkly test` (max. 3) */
     retries: 0,
   },
 })
