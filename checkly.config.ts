@@ -27,10 +27,9 @@ const config = defineConfig({
         viewport: { width: 1280, height: 720 },
       },
     },
-    browserChecks: {
-      /* Temporary for Part 2: every .spec.ts file under __checks__ becomes a Browser check.
-       * Part 4 changes this so the Playwright group owns these files instead. */
-      testMatch: '**/__checks__/**/*.spec.ts',
+        browserChecks: {
+      /* Browser checks are discovered by the Playwright group in __checks__/playwright/ */
+      testMatch: '**/__checks__/standalone/**/*.spec.ts',
     },
   },
   cli: {
