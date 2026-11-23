@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('test', async ({ page }) => {
+test('Shopping flow: add Blue Top to cart and reach signup', async ({ page }) => {
   // Dismiss the GDPR consent dialog whenever it appears (EU run locations)
   await page.addLocatorHandler(page.getByRole('button', { name: 'Consent' }), async () => {
     await page.getByRole('button', { name: 'Consent' }).click();
