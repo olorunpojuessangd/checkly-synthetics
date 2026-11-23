@@ -1,14 +1,12 @@
 import { test, expect } from '@playwright/test';
 
 test('test', async ({ page }) => {
+  // Dismiss the GDPR consent dialog whenever it appears (EU run locations)
+  await page.addLocatorHandler(page.getByRole('button', { name: 'Consent' }), async () => {
+    await page.getByRole('button', { name: 'Consent' }).click();
+  });
   await page.goto('https://www.automationexercise.com/');
-	const consentButton = page.getByRole('button', { name: 'Consent' });
-  if (await consentButton.isVisible()) {
-    await consentButton.click();
-  } else {
-    console.log('GDPR does not apply.');
-  } 
-  await page.getByRole('link', { name: ' Products' }).click();
+  await page.getByRole('link', { name: 'Products' }).click();
   const searchBar = page.getByPlaceholder('Search Product');
   await expect(searchBar).toBeVisible();
   const addBlueTopButton = page.locator('div.productinfo a[data-product-id="1"]')
