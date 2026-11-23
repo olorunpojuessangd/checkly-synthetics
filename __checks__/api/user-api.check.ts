@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { ApiCheck, AssertionBuilder, CheckGroupV2, Frequency } from 'checkly/constructs';
+import { AlertEscalationBuilder, ApiCheck, AssertionBuilder, CheckGroupV2, Frequency } from 'checkly/constructs';
 import { emailChannel } from '../alert-channels';
 
 type User = { id: number; name: string; profile_url: string };
@@ -15,6 +15,7 @@ export const apiGroup = new CheckGroupV2('user-api-checks-group', {
   activated: true,
   frequency: Frequency.EVERY_10M,
   locations: ['us-east-1', 'eu-west-1'],
+  alertEscalationPolicy: AlertEscalationBuilder.runBasedEscalation(1),
   alertChannels: [emailChannel],
 });
 
