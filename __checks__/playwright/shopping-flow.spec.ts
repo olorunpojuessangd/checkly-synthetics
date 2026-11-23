@@ -10,15 +10,15 @@ test('test', async ({ page }) => {
   } 
   await page.getByRole('link', { name: ' Products' }).click();
   const searchBar = page.getByPlaceholder('Search Product');
-  expect(searchBar).toBeVisible;
+  await expect(searchBar).toBeVisible();
   const addBlueTopButton = page.locator('div.productinfo a[data-product-id="1"]')
   await addBlueTopButton.click()
   const modalHeading = page.getByRole("heading", { name: "Added!"});
-  expect(modalHeading).toBeVisible;
-  await page.getByRole('link', { name: 'Continue Shopping' }).click();
+  await expect(modalHeading).toBeVisible();
+  await page.getByRole('button', { name: 'Continue Shopping' }).click();
   await page.getByRole('link', { name: 'Cart'}).click();
   await page.getByText('Proceed To Checkout').click();
-  await page.getByRole('link', { name: 'Register / Signup'}).click();
+  await page.getByRole('link', { name: 'Register / Login' }).click();
   const signupHeading = page.getByRole('heading', { name: 'New User Signup!'});
-  expect(signupHeading).toBeVisible;
+  await expect(signupHeading).toBeVisible();
 });
